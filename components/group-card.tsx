@@ -55,7 +55,7 @@ export function GroupCard({ group }: GroupCardProps) {
                 transition={{ delay: index * 0.1, duration: 0.3 }}
                 className="flex items-start gap-4 p-4 border-b last:border-b-0 border-gray-100 hover:bg-white/60 transition-colors"
               >
-                <div className="flex-shrink-0 w-32 h-40 rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <div className="flex-shrink-0 w-24 h-32 rounded-xl border border-gray-200 shadow-sm overflow-hidden">
                   <img
                     src={`/student_${member.id.replace('p', '')}.jpeg`}
                     alt={member.name}
