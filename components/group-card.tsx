@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import type { Group } from "@/types/groups"
 import { getGroupIcon, getGroupColor } from "@/lib/group-utils"
 
@@ -54,16 +53,16 @@ export function GroupCard({ group }: GroupCardProps) {
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: index * 0.1, duration: 0.3 }}
-                className="flex items-center gap-4 p-4 border-b last:border-b-0 border-gray-100 hover:bg-white/60 transition-colors"
+                className="flex items-start gap-4 p-4 border-b last:border-b-0 border-gray-100 hover:bg-white/60 transition-colors"
               >
-                <div className="flex-shrink-0 h-20 w-20 rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                <div className="flex-shrink-0 w-32 h-40 rounded-xl border border-gray-200 shadow-sm overflow-hidden">
                   <img
                     src={`/student_${member.id.replace('p', '')}.jpeg`}
                     alt={member.name}
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <div>
+                <div className="pt-3">
                   <h3 className="font-medium text-lg">{member.name}</h3>
                   <p className="text-gray-500">{member.organization}</p>
                 </div>
