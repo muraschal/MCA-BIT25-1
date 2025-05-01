@@ -58,7 +58,7 @@ export function GroupCard({ group }: GroupCardProps) {
               >
                 <Avatar className="h-20 w-20 rounded-xl border border-gray-200 shadow-sm">
                   <AvatarImage
-                    src={`/abstract-portrait.png?height=200&width=200&query=${encodeURIComponent(member.name)}`}
+                    src={`/student_${member.id.replace('p', '')}.jpeg`}
                     alt={member.name}
                   />
                   <AvatarFallback className="text-lg">
