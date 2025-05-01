@@ -2,6 +2,7 @@ export interface Participant {
   id: string
   name: string
   organization: string
+  position?: string  // Optional field for professional title/position
 }
 
 export interface Group {

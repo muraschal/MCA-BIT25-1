@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,7 +11,7 @@
   --card-foreground: 222.2 84% 4.9%;
   --popover: 0 0% 100%;
   --popover-foreground: 222.2 84% 4.9%;
-  --primary: 262.1 83.3% 57.8%;
+  --primary: 225 75% 37%; /* HWZ Blau als Primary-Farbe */
   --primary-foreground: 210 40% 98%;
   --secondary: 210 40% 96.1%;
   --secondary-foreground: 222.2 47.4% 11.2%;
@@ -21,7 +23,7 @@
   --destructive-foreground: 210 40% 98%;
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
-  --ring: 262.1 83.3% 57.8%;
+  --ring: 225 75% 37%;
   --radius: 0.75rem;
 }
 
@@ -32,7 +34,7 @@
   --card-foreground: 210 40% 98%;
   --popover: 222.2 84% 4.9%;
   --popover-foreground: 210 40% 98%;
-  --primary: 262.1 83.3% 57.8%;
+  --primary: 225 75% 37%;
   --primary-foreground: 210 40% 98%;
   --secondary: 217.2 32.6% 17.5%;
   --secondary-foreground: 210 40% 98%;
@@ -44,12 +46,31 @@
   --destructive-foreground: 210 40% 98%;
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
-  --ring: 262.1 83.3% 57.8%;
+  --ring: 225 75% 37%;
 }
 
 body {
-  background: linear-gradient(135deg, #f5f0ff 0%, #fff 50%, #fff0f9 100%);
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, var(--hwz-blue-100) 0%, #fff 50%, #fff 100%);
   min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+}
+
+/* HWZ-spezifische Variablen */
+:root {
+  --hwz-blue-100: #EDF2FF;
+  --hwz-blue-200: #D5DFFF;
+  --hwz-blue-300: #A9BEFF;
+  --hwz-blue-400: #7A9CFF;
+  --hwz-blue-500: #3366CC;
+  --hwz-blue-600: #20399D;
+  --hwz-blue-700: #162B76;
+  --hwz-blue-800: #0C1F5E;
+  --hwz-blue-900: #071542;
 }
 
 /* Glass effect styles */
@@ -67,4 +88,23 @@ body {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+/* HWZ-spezifische Komponenten */
+@layer components {
+  .hwz-button {
+    @apply bg-hwz-blue-600 hover:bg-hwz-blue-700 text-white font-medium px-6 py-2 rounded transition-colors;
+  }
+  
+  .hwz-link {
+    @apply text-hwz-blue-600 hover:text-hwz-blue-800 font-medium underline-offset-2 hover:underline transition-colors;
+  }
+  
+  .hwz-heading {
+    @apply font-headline text-hwz-gray-900 font-semibold leading-tight;
+  }
+  
+  .hwz-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
 }

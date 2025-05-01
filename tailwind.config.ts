@@ -19,6 +19,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
+        headline: ['Source Sans Pro', 'Inter', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -52,6 +56,33 @@ const config = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        hwz: {
+          blue: {
+            DEFAULT: "#20399D", // HWZ Blau Hauptfarbe
+            light: "#3366CC",   // Helleres HWZ Blau
+            dark: "#0C1F5E",    // Dunkleres HWZ Blau
+            100: "#EDF2FF",     // Hellster Blauton (für Hintergründe)
+            200: "#D5DFFF",
+            300: "#A9BEFF",
+            400: "#7A9CFF",
+            500: "#3366CC",
+            600: "#20399D",
+            700: "#162B76",
+            800: "#0C1F5E",
+            900: "#071542",
+          },
+          gray: {
+            100: "#F5F7FA",
+            200: "#E4E8F0",
+            300: "#D0D5E0",
+            400: "#A0A8B9",
+            500: "#6B7280",
+            600: "#4B5563",
+            700: "#374151",
+            800: "#1F2937",
+            900: "#111827",
+          }
         },
       },
       borderRadius: {

@@ -65,6 +65,9 @@ export function GroupCard({ group }: GroupCardProps) {
                 <div className="pt-3">
                   <h3 className="font-medium text-lg">{member.name}</h3>
                   <p className="text-gray-500">{member.organization}</p>
+                  {member.position && (
+                    <p className="text-gray-400 text-sm mt-1 italic">{member.position}</p>
+                  )}
                 </div>
               </motion.div>
             ))}

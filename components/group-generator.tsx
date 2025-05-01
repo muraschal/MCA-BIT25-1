@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Shuffle, Users, Upload, Download, RefreshCw, Menu } from "lucide-react"
 import { Button } from "./ui/button"
@@ -14,6 +14,30 @@ import type { Participant, Group } from "@/types/groups"
 import { initialParticipants } from "@/data/participants"
 import { StudentChaos } from "./student-chaos"
 
+// Lustige Taglines für unterhalb des Titels
+const funnyTaglines = [
+  "Forming, Storming, Norming, Performing... and occasional Chaos!",
+  "Where 'Team Synergy' meets 'Who are these people?'",
+  "Because random teams are better than your office politics",
+  "Transforming 'Not another group project' into 'Dream Team'",
+  "Making networking less awkward since 2025",
+  "Like LinkedIn's algorithm, but with actual humans",
+  "For when Rock-Paper-Scissors isn't professional enough",
+  "Because Excel randomization just doesn't have the same pizzazz",
+  "Turning strangers into colleagues since your coffee kicked in",
+  "Your group work trauma ends here",
+  "Breaking silos faster than your morning espresso",
+  "Cultivating cross-functional excellence through glorified randomization",
+  "Leveraging human capital with sophisticated clicking technology",
+  "The AI revolution stops at team formation... for now",
+  "Disrupting the 'same people always work together' paradigm",
+  "Where introverts and extroverts unite (whether they want to or not)",
+  "Creating tomorrow's leadership stories today",
+  "Strategic randomization for optimal human resource allocation",
+  "Driving innovation through unexpected collaboration",
+  "Agile team formation without the buzzword bingo"
+];
+
 export function GroupGenerator() {
   const [participants, setParticipants] = useState<Participant[]>(initialParticipants)
   const [groups, setGroups] = useState<Group[]>([])
@@ -21,7 +45,14 @@ export function GroupGenerator() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [showImport, setShowImport] = useState(false)
   const [showChaos, setShowChaos] = useState(true)
+  const [tagline, setTagline] = useState("")
   const { toast, Toaster } = useToast()
+
+  // Zufällige Tagline beim Laden auswählen
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * funnyTaglines.length);
+    setTagline(funnyTaglines[randomIndex]);
+  }, []);
 
   const handleGenerateGroups = async () => {
     setIsGenerating(true)
@@ -43,8 +74,8 @@ export function GroupGenerator() {
     }, 300)
 
     toast({
-      title: "Gruppen erstellt!",
-      description: `${numGroups} Gruppen wurden erfolgreich generiert.`,
+      title: "Teams Created!",
+      description: `${numGroups} dynamic teams successfully generated.`,
     })
   }
 
@@ -52,8 +83,8 @@ export function GroupGenerator() {
     setParticipants(newParticipants)
     setShowImport(false)
     toast({
-      title: "Teilnehmer importiert",
-      description: `${newParticipants.length} Teilnehmer wurden erfolgreich importiert.`,
+      title: "Participants Imported",
+      description: `${newParticipants.length} participants successfully onboarded.`,
     })
   }
 
@@ -65,17 +96,17 @@ export function GroupGenerator() {
   const exportGroups = () => {
     if (groups.length === 0) {
       toast({
-        title: "Keine Gruppen vorhanden",
-        description: "Bitte generieren Sie zuerst Gruppen.",
+        title: "No Teams Available",
+        description: "Please generate teams first to proceed.",
         variant: "destructive",
       })
       return
     }
 
     const csv = [
-      "Gruppe,Name,Organisation",
+      "Team,Name,Organization,Position",
       ...groups.flatMap((group) =>
-        group.members.map((member) => `"${group.name}","${member.name}","${member.organization}"`),
+        group.members.map((member) => `"${group.name}","${member.name}","${member.organization}","${member.position || 'Not specified'}"`),
       ),
     ].join("\n")
 
@@ -83,14 +114,14 @@ export function GroupGenerator() {
     const url = URL.createObjectURL(blob)
     const link = document.createElement("a")
     link.setAttribute("href", url)
-    link.setAttribute("download", "hwz-emba-gruppen.csv")
+    link.setAttribute("download", "hwz-team-allocation.csv")
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
 
     toast({
-      title: "Export erfolgreich",
-      description: "Die Gruppen wurden als CSV-Datei exportiert.",
+      title: "Export Successful",
+      description: "Team allocation with positions exported as CSV file.",
     })
   }
 
@@ -98,28 +129,20 @@ export function GroupGenerator() {
     <div className="container mx-auto px-4 py-8">
       <StudentChaos participants={participants} isVisible={showChaos} />
       
-      {/* Amboss-style header */}
-      <header className="flex justify-between items-center py-6 mb-8">
+      {/* Simplified header */}
+      <header className="flex justify-between items-center py-6 mb-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
           className="flex items-center"
         >
-          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
-            HWZ EMBA 2024
+          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-800 to-blue-600">
+            HWZ Team Generator
           </h1>
         </motion.div>
         <div className="hidden md:flex items-center gap-6">
-          <nav className="flex gap-6">
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Über uns
-            </a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-              Kontakt
-            </a>
-          </nav>
-          <Button className="rounded-full bg-black text-white hover:bg-gray-800">Anmelden</Button>
+          {/* GitHub-Link wurde entfernt und ist nur noch im Footer vorhanden */}
         </div>
         <Button variant="ghost" size="icon" className="md:hidden">
           <Menu className="h-6 w-6" />
@@ -130,19 +153,20 @@ export function GroupGenerator() {
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="text-left max-w-2xl mb-16"
+        className="text-left max-w-2xl mb-16 relative z-10"
       >
-        <h2 className="text-5xl font-bold mb-4 text-gray-900 leading-tight">Gruppengenerator</h2>
-        <p className="text-xl text-gray-600 mb-8">
-          Zufällige Gruppenerstellung für EMBA-Teilnehmer der Hochschule für Wirtschaft Zürich
+        <h2 className="text-5xl font-bold mb-4 text-gray-900 leading-tight">Team Allocation Engine</h2>
+        <p className="text-lg text-blue-600 italic mb-8">
+          {tagline}
         </p>
 
-        <div className="flex flex-wrap gap-4">
+        {/* Horizontales, vertikal zentriertes Layout für Gruppenanzahl und Button */}
+        <div className="flex items-center justify-start gap-6">
           <Card className="backdrop-blur-md bg-white/30 border-0 shadow-sm">
             <CardContent className="flex items-center gap-4 p-4">
               <div className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-gray-500" />
-                <span className="text-gray-700">Anzahl der Gruppen:</span>
+                <span className="text-gray-700">Number of Teams:</span>
               </div>
               <Select value={numGroups.toString()} onValueChange={(value) => setNumGroups(Number.parseInt(value))}>
                 <SelectTrigger className="w-20 bg-white/50 backdrop-blur-sm">
@@ -162,50 +186,27 @@ export function GroupGenerator() {
           <Button
             onClick={handleGenerateGroups}
             disabled={isGenerating}
-            className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full px-6"
+            className="gap-2 bg-gradient-to-r from-blue-800 to-blue-600 hover:from-blue-900 hover:to-blue-700 text-white rounded-full px-6"
             size="lg"
           >
             {isGenerating ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Shuffle className="h-4 w-4" />}
-            Gruppen erstellen
-          </Button>
-
-          <Button variant="outline" onClick={() => setShowImport(true)} className="gap-2 rounded-full" size="lg">
-            <Upload className="h-4 w-4" />
-            Import
-          </Button>
-
-          <Button variant="outline" onClick={exportGroups} className="gap-2 rounded-full" size="lg">
-            <Download className="h-4 w-4" />
-            Export
+            Generate Teams
           </Button>
 
           {groups.length > 0 && (
-            <Button variant="outline" onClick={resetGroups} className="gap-2 rounded-full" size="lg">
+            <Button variant="outline" onClick={resetGroups} className="gap-2 rounded-full border-blue-600 text-blue-700" size="lg">
               <RefreshCw className="h-4 w-4" />
-              Zurücksetzen
+              Reset
             </Button>
           )}
         </div>
       </motion.div>
 
-      {/* Geometric decoration */}
-      <div className="absolute top-20 right-10 w-96 h-96 opacity-20 pointer-events-none hidden lg:block">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 1 }}>
-          <svg width="100%" height="100%" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path
-              fill="#FF0066"
-              d="M47.7,-57.2C59.9,-45.8,67.2,-28.6,68.1,-11.5C69,5.7,63.5,22.8,53.1,35.8C42.7,48.8,27.4,57.6,10.2,62.1C-7,66.5,-26.2,66.6,-40.4,58.3C-54.6,50,-63.9,33.3,-67.4,15.1C-70.9,-3.1,-68.7,-22.8,-59.1,-37.4C-49.5,-52,-32.5,-61.5,-14.9,-63.9C2.8,-66.3,35.5,-68.5,47.7,-57.2Z"
-              transform="translate(100 100)"
-            />
-          </svg>
-        </motion.div>
-      </div>
-
       <AnimatePresence>
         {showImport && <ParticipantImport onImport={handleImportParticipants} onCancel={() => setShowImport(false)} />}
       </AnimatePresence>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 relative z-10">
         <AnimatePresence>
           {groups.map((group, index) => (
             <motion.div
@@ -225,6 +226,40 @@ export function GroupGenerator() {
           ))}
         </AnimatePresence>
       </div>
+
+      {/* Footer mit GitHub Link und Copyright */}
+      <footer className="fixed bottom-0 left-0 right-0 py-4 border-t border-gray-200 bg-white/90 backdrop-blur-sm z-10">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+            <div className="mb-4 md:mb-0">
+              © {new Date().getFullYear()} - <a 
+                href="https://www.linkedin.com/in/marcelrapold/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-gray-700 underline"
+              >
+                Marcel Rapold
+              </a>
+            </div>
+            <div className="flex items-center">
+              <a 
+                href="https://github.com/muraschal/MCA-BIT25-1" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-gray-700"
+              >
+                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" className="inline-block">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                Source Code on GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* Extra Platz für den fixierten Footer */}
+      <div className="pb-20"></div>
 
       <Toaster />
     </div>

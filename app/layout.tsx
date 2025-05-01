@@ -7,9 +7,9 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "HWZ Gruppengenerator",
-  description: "Zufällige Gruppenerstellung für EMBA-Teilnehmer",
-    generator: 'v0.dev'
+  title: "HWZ Team Generator | Hochschule für Wirtschaft Zürich",
+  description: "Dynamische Teamzuteilung für HWZ-Studierende",
+  generator: 'HWZ Team Generator'
 }
 
 export default function RootLayout({
@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="de" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}
