@@ -56,18 +56,13 @@ export function GroupCard({ group }: GroupCardProps) {
                 transition={{ delay: index * 0.1, duration: 0.3 }}
                 className="flex items-center gap-4 p-4 border-b last:border-b-0 border-gray-100 hover:bg-white/60 transition-colors"
               >
-                <Avatar className="h-20 w-20 rounded-xl border border-gray-200 shadow-sm">
-                  <AvatarImage
+                <div className="flex-shrink-0 h-20 w-20 rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                  <img
                     src={`/student_${member.id.replace('p', '')}.jpeg`}
                     alt={member.name}
+                    className="h-full w-full object-cover"
                   />
-                  <AvatarFallback className="text-lg">
-                    {member.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
-                  </AvatarFallback>
-                </Avatar>
+                </div>
                 <div>
                   <h3 className="font-medium text-lg">{member.name}</h3>
                   <p className="text-gray-500">{member.organization}</p>
