@@ -129,7 +129,7 @@ export function GroupGenerator() {
     <div className="container mx-auto px-4 py-8">
       <StudentChaos participants={participants} isVisible={showChaos} />
       
-      {/* Simplified header */}
+      {/* Simplified header ohne Menübutton */}
       <header className="flex justify-between items-center py-6 mb-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -141,12 +141,6 @@ export function GroupGenerator() {
             HWZ Team Generator
           </h1>
         </motion.div>
-        <div className="hidden md:flex items-center gap-6">
-          {/* GitHub-Link wurde entfernt und ist nur noch im Footer vorhanden */}
-        </div>
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <Menu className="h-6 w-6" />
-        </Button>
       </header>
 
       <motion.div
@@ -160,9 +154,9 @@ export function GroupGenerator() {
           {tagline}
         </p>
 
-        {/* Horizontales, vertikal zentriertes Layout für Gruppenanzahl und Button */}
-        <div className="flex items-center justify-start gap-6">
-          <Card className="backdrop-blur-md bg-white/30 border-0 shadow-sm">
+        {/* Verbesserte mobile Ansicht für Kontrollelemente */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+          <Card className="backdrop-blur-md bg-white/30 border-0 shadow-sm w-full sm:w-auto">
             <CardContent className="flex items-center gap-4 p-4">
               <div className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-gray-500" />
@@ -183,22 +177,29 @@ export function GroupGenerator() {
             </CardContent>
           </Card>
 
-          <Button
-            onClick={handleGenerateGroups}
-            disabled={isGenerating}
-            className="gap-2 bg-gradient-to-r from-blue-800 to-blue-600 hover:from-blue-900 hover:to-blue-700 text-white rounded-full px-6"
-            size="lg"
-          >
-            {isGenerating ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Shuffle className="h-4 w-4" />}
-            Generate Teams
-          </Button>
-
-          {groups.length > 0 && (
-            <Button variant="outline" onClick={resetGroups} className="gap-2 rounded-full border-blue-600 text-blue-700" size="lg">
-              <RefreshCw className="h-4 w-4" />
-              Reset
+          <div className="flex flex-wrap gap-4 mt-4 sm:mt-0">
+            <Button
+              onClick={handleGenerateGroups}
+              disabled={isGenerating}
+              className="gap-2 bg-gradient-to-r from-blue-800 to-blue-600 hover:from-blue-900 hover:to-blue-700 text-white rounded-full px-6 w-full sm:w-auto"
+              size="lg"
+            >
+              {isGenerating ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Shuffle className="h-4 w-4" />}
+              Generate Teams
             </Button>
-          )}
+
+            {groups.length > 0 && (
+              <Button 
+                variant="outline" 
+                onClick={resetGroups} 
+                className="gap-2 rounded-full border-blue-600 text-blue-700 w-full sm:w-auto" 
+                size="lg"
+              >
+                <RefreshCw className="h-4 w-4" />
+                Reset
+              </Button>
+            )}
+          </div>
         </div>
       </motion.div>
 
