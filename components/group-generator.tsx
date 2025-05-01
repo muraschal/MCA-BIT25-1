@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast"
 import { generateGroups, getGroupThemes } from "@/lib/group-utils"
 import type { Participant, Group } from "@/types/groups"
 import { initialParticipants } from "@/data/participants"
+import { StudentChaos } from "./student-chaos"
 
 export function GroupGenerator() {
   const [participants, setParticipants] = useState<Participant[]>(initialParticipants)
@@ -19,10 +20,14 @@ export function GroupGenerator() {
   const [numGroups, setNumGroups] = useState<number>(6)
   const [isGenerating, setIsGenerating] = useState(false)
   const [showImport, setShowImport] = useState(false)
+  const [showChaos, setShowChaos] = useState(true)
   const { toast, Toaster } = useToast()
 
   const handleGenerateGroups = async () => {
     setIsGenerating(true)
+    
+    // Hide the chaos animation
+    setShowChaos(false)
 
     // Simulate processing time for animation effect
     await new Promise((resolve) => setTimeout(resolve, 800))
@@ -50,6 +55,11 @@ export function GroupGenerator() {
       title: "Teilnehmer importiert",
       description: `${newParticipants.length} Teilnehmer wurden erfolgreich importiert.`,
     })
+  }
+
+  const resetGroups = () => {
+    setGroups([])
+    setShowChaos(true)
   }
 
   const exportGroups = () => {
@@ -86,6 +96,8 @@ export function GroupGenerator() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <StudentChaos participants={participants} isVisible={showChaos} />
+      
       {/* Amboss-style header */}
       <header className="flex justify-between items-center py-6 mb-8">
         <motion.div
@@ -166,6 +178,13 @@ export function GroupGenerator() {
             <Download className="h-4 w-4" />
             Export
           </Button>
+
+          {groups.length > 0 && (
+            <Button variant="outline" onClick={resetGroups} className="gap-2 rounded-full" size="lg">
+              <RefreshCw className="h-4 w-4" />
+              Zurücksetzen
+            </Button>
+          )}
         </div>
       </motion.div>
 
