@@ -99,8 +99,8 @@ export function StudentChaos({ participants, isVisible, onAnimationComplete }: S
                     rotate: randomRotate,
                     x: [0, 10, -5, 8, 0].map((v) => v * (1 + randomZ / 5)),
                     y: [0, -8, 5, -10, 0].map((v) => v * (1 + randomZ / 5)),
-                    translateX: mousePosition.x * 0.01 * (randomZ / 5 - 0.5),
-                    translateY: mousePosition.y * 0.01 * (randomZ / 5 - 0.5),
+                    translateX: mousePosition.x * 0.003 * (randomZ / 5 - 0.5),
+                    translateY: mousePosition.y * 0.003 * (randomZ / 5 - 0.5),
                   }}
                   exit={{
                     x: exitX,
@@ -137,7 +137,7 @@ export function StudentChaos({ participants, isVisible, onAnimationComplete }: S
                       }}
                     />
 
-                    <div className="h-16 w-16 rounded-full border-2 border-white shadow-lg overflow-hidden">
+                    <div className="h-24 w-24 rounded-full border-2 border-white shadow-lg overflow-hidden">
                       <img 
                         src={`/student_${participant.id.replace('p', '')}.jpeg`}
                         alt={participant.name}
@@ -182,8 +182,8 @@ export function StudentChaos({ participants, isVisible, onAnimationComplete }: S
                     filter: "blur(1px)",
                   }}
                   animate={{
-                    x: [0, 10, -10, 5, 0].map((v) => v * Math.random() * 10),
-                    y: [0, -5, 10, -10, 0].map((v) => v * Math.random() * 10),
+                    x: [0, 10, -10, 5, 0].map((v) => v * Math.random() * 5),
+                    y: [0, -5, 10, -10, 0].map((v) => v * Math.random() * 5),
                   }}
                   exit={{
                     x: exitX,
