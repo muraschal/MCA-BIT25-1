@@ -83,7 +83,7 @@
         participantsContainer.innerHTML = participants.map(p => `
             <div class="col-4 col-md-4 col-lg-2">
                 <div class="card mb-3">
-                    <img src="/images/${p.id}.jpg" alt="${p.name}" class="card-img-top" style="height: 100px; object-fit: cover;">
+                    <img src="/images/student_${p.id}.jpeg" alt="${p.name}" class="card-img-top" style="height: 100px; object-fit: cover;">
                     <div class="card-body">
                         <h6 class="card-title">${p.name}</h6>
                         <p class="card-text"><small class="text-muted">${p.company}</small></p>
@@ -124,7 +124,7 @@
             groupDiv.innerHTML = `<h3 style="color: ${color};">${emoji} Gruppe ${name}</h3><ul class="list-group">` +
                 group.map(p => `
                     <li class="list-group-item d-flex align-items-center">
-                        <img src="/images/${p.id}.jpg" alt="${p.name}" class="me-3" style="max-width: 99px; height: auto;">
+                        <img src="/images/student_${p.id}.jpeg" alt="${p.name}" class="me-3" style="max-width: 99px; height: auto;">
                         <div>
                             <div>${p.name}</div>
                             <small class="text-muted">${p.company}</small>

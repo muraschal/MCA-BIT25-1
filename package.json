@@ -1,0 +1,11 @@
+{
+  "name": "hwz-emba-grouper",
+  "version": "1.0.0",
+  "description": "Gruppengenerator für HWZ EMBA 2024",
+  "scripts": {
+    "start": "http-server -p 8080 -c-1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+} 

@@ -2,10 +2,40 @@
 .vscode/
 .idea/
 *.sublime-*
+*.swp
+*.swo
 
-# Temporäre Dateien
+# Betriebssystem Dateien
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Node Module (falls Sie später welche verwenden)
+# Temporäre Dateien
+*.log
+*.tmp
+*.temp
+*.bak
+
+# Build/Verteilungsordner
+dist/
+build/
+out/
+
+# Abhängigkeiten
 node_modules/
+bower_components/
+jspm_packages/
+
+# Umgebungsvariablen
+.env
+.env.local
+.env.*.local
+
+# Test Coverage
+coverage/
+*.lcov
+
+# Debug Dateien
+*.pid
+*.seed
+*.pid.lock
