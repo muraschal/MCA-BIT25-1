@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Shuffle, Users, Upload, Download, RefreshCw, Menu } from "lucide-react"
 import { Button } from "./ui/button"
@@ -47,6 +47,7 @@ export function GroupGenerator() {
   const [showChaos, setShowChaos] = useState(true)
   const [tagline, setTagline] = useState("")
   const { toast, Toaster } = useToast()
+  const groupsContainerRef = useRef<HTMLDivElement>(null)
 
   // Zufällige Tagline beim Laden auswählen
   useEffect(() => {
@@ -71,6 +72,16 @@ export function GroupGenerator() {
     setTimeout(() => {
       setGroups(newGroups)
       setIsGenerating(false)
+      
+      // Warte kurz bis die Gruppen gerendert sind und scrolle dann sanft dorthin
+      setTimeout(() => {
+        if (groupsContainerRef.current && window.innerWidth < 768) {
+          groupsContainerRef.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+      }, 400);
     }, 300)
 
     toast({
@@ -207,7 +218,10 @@ export function GroupGenerator() {
         {showImport && <ParticipantImport onImport={handleImportParticipants} onCancel={() => setShowImport(false)} />}
       </AnimatePresence>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 relative z-10">
+      <div 
+        ref={groupsContainerRef}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 relative z-10"
+      >
         <AnimatePresence>
           {groups.map((group, index) => (
             <motion.div
