@@ -1,4 +1,6 @@
-# HWZ EMBA 2024 Gruppengenerator
+# MCA-BIT25-1
+
+## HWZ EMBA 2024 Gruppengenerator
 
 Ein Tool zur zufälligen Gruppenerstellung für EMBA-Teilnehmer, entwickelt nach Google Engineering Style Best Practices.
 
